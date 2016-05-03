@@ -63,6 +63,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
+        
+        
 
         <jxnu.n433.x3107.Fragment.View.PullDownScrollView
             android:id="@+id/refresh_root"

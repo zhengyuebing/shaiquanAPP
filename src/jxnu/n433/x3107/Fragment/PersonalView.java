@@ -37,7 +37,7 @@ import jxnu.n433.x3107.sqlite.GoodsDataHelper;
 import jxnu.n433.x3107.sqlite.UserInfoDataHelper;
 
 @SuppressLint({ "SimpleDateFormat", "HandlerLeak" })
-public class MySelfFragment extends Fragment implements OnClickListener{
+public class PersonalView extends Fragment implements OnClickListener{
 
 	private View myselfLayout;
 

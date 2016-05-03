@@ -18,14 +18,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import jxnu.n433.x3017.Adapter.GirdViewAdapter;
-import jxnu.n433.x3107.Fragment.View.HGridView;
-import jxnu.n433.x3107.Fragment.View.Logger;
 import jxnu.n433.x3107.Fragment.View.PullDownElasticImp;
 import jxnu.n433.x3107.Fragment.View.PullDownScrollView;
 import jxnu.n433.x3107.Fragment.View.PullDownScrollView.RefreshListener;
@@ -33,13 +30,8 @@ import jxnu.n433.x3107.SunGroup.LocatorActivity;
 import jxnu.n433.x3107.SunGroup.R;
 import jxnu.n433.x3107.SunGroup.SeekActivity;
 import jxnu.n433.x3107.SunGroup.WelComeActivity;
-import jxnu.n433.x3107.SunGroup.OtherActivity.HomeGoodsGVActivity;
 import jxnu.n433.x3107.SunGroup.OtherActivity.HomeMenuClassActivity;
 import jxnu.n433.x3107.bean.Ad;
-import jxnu.n433.x3107.bean.MySelfListing;
-import jxnu.n433.x3107.bean.UserInfo;
-import jxnu.n433.x3107.sqlite.GoodsDataHelper;
-import jxnu.n433.x3107.sqlite.UserInfoDataHelper;
 import jxnu.n433.x3107.utils.Utils;
 
 public class HomePageFragment extends Fragment implements RefreshListener,OnClickListener{
@@ -52,19 +44,18 @@ public class HomePageFragment extends Fragment implements RefreshListener,OnClic
 	private View homepageLayout;
 	private ImageView ivSeek;
 	private TextView tvHomeLocator;
+	private ListView goodsitem_lv;  //商品列表
+	//分类菜单按钮
+	private RelativeLayout menuItemLayout1;
+	private RelativeLayout menuItemLayout2;
+	private RelativeLayout menuItemLayout3;
+	private RelativeLayout menuItemLayout4;
 
+	private PullDownScrollView mPullDownScrollView; 
+	
 	private List<Ad> imageList=new ArrayList<Ad>();
 
 	private boolean ADisRunning = false;
-
-	//商品列表
-	private HGridView hotGridView;
-	private HGridView catGridView;
-	private List<MySelfListing> mslList;
-	private GoodsDataHelper goodsDHelper;
-	private RelativeLayout layoutMenu1,layoutMenu2,layoutMenu3,layoutMenu4;//菜单
-
-	private PullDownScrollView mPullDownScrollView; 
 
 	private SharedPreferences sPreferences;
 
@@ -99,11 +90,9 @@ public class HomePageFragment extends Fragment implements RefreshListener,OnClic
 		
 		initPullDown();//下拉刷新
 
-		initLayoutMenu();//菜单
+		initMenuItem();//菜单
 
-
-		//物品界面
-		initCommodity();
+		initGoodsItem();//物品界面
 
 		ADisRunning = true;
 		handler.sendEmptyMessageDelayed(0, 4000);
@@ -113,7 +102,8 @@ public class HomePageFragment extends Fragment implements RefreshListener,OnClic
 	}
 
 	private void initView() {
-		viewPager=(ViewPager) homepageLayout.findViewById(R.id.homeviewPage);
+		viewPager = (ViewPager) homepageLayout.findViewById(R.id.homeviewPage);
+		goodsitem_lv = (ListView) homepageLayout.findViewById(R.id.home_goosditem_lv);
 		//		pointGroup=(LinearLayout) homepageLayout.findViewById(R.id.dot_layout);
 	}
 
@@ -283,63 +273,53 @@ public class HomePageFragment extends Fragment implements RefreshListener,OnClic
 	 * 菜单点击
 	 * */
 
-	private void initLayoutMenu() {
+	private void initMenuItem() {
 		
-		layoutMenu1 = (RelativeLayout) homepageLayout.findViewById(R.id.home_layout_main_menu_1);
-		layoutMenu2 = (RelativeLayout) homepageLayout.findViewById(R.id.home_layout_main_menu_2);
-		layoutMenu3 = (RelativeLayout) homepageLayout.findViewById(R.id.home_layout_main_menu_3);
-		layoutMenu4 = (RelativeLayout) homepageLayout.findViewById(R.id.home_layout_main_menu_4);
+		menuItemLayout1 = (RelativeLayout) homepageLayout.findViewById(R.id.home_menu_item_1);
+		menuItemLayout2 = (RelativeLayout) homepageLayout.findViewById(R.id.home_menu_item_2);
+		menuItemLayout3 = (RelativeLayout) homepageLayout.findViewById(R.id.home_menu_item_3);
+		menuItemLayout4 = (RelativeLayout) homepageLayout.findViewById(R.id.home_menu_item_4);
 
-		layoutMenu1.setOnClickListener(this);
-		layoutMenu2.setOnClickListener(this);
-		layoutMenu3.setOnClickListener(this);
-		layoutMenu4.setOnClickListener(this);
+		menuItemLayout1.setOnClickListener(this);
+		menuItemLayout2.setOnClickListener(this);
+		menuItemLayout3.setOnClickListener(this);
+		menuItemLayout4.setOnClickListener(this);
 	}
 
 	/*
 	 * 商品列表
 	 * */
-	private void initCommodity() {
+	private void initGoodsItem() {
 		
-		goodsDHelper = new GoodsDataHelper(getActivity());
-		mslList = new ArrayList<MySelfListing>();
-		mslList = goodsDHelper.getGoodsInfoList();
-		Utils.showToast(getActivity(), mslList.size()+"");
+		ItemAdapter ia = new ItemAdapter();
+		goodsitem_lv.setAdapter(ia);
 		
-		if (mslList.size() == 0) {
-			
-		}else {
-			
-			hotGridView = (HGridView) homepageLayout.findViewById(R.id.home_commodity_hotgridview);
-			hotGridView.setAdapter(new GirdViewAdapter(getActivity(),mslList));
-			hotGridView.setOnItemClickListener(new OnItemClickListener() {
+	}
+	
+	class ItemAdapter extends BaseAdapter{
 
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-					Intent intent = new Intent(getActivity(),HomeGoodsGVActivity.class);
-					intent.putExtra("int","hotGridView:"+arg2);
-					intent.putExtra("goodsName", ""+mslList.get(arg2).getGoodsName());
-					intent.putExtra("studentNumber", ""+mslList.get(arg2).getStudentNumber());
-					startActivity(intent);
-					getActivity().finish();
-					Logger.d(arg2+"");
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 
-				}
-			});
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
 
-			catGridView = (HGridView) homepageLayout.findViewById(R.id.home_commodity_catgridview);
-//			catGridView.setAdapter(new GirdViewAdapter(getActivity(),null));
-			catGridView.setOnItemClickListener(new OnItemClickListener() {
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
 
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-					Intent intent = new Intent(getActivity(),HomeGoodsGVActivity.class);
-					intent.putExtra("int", "catGridView:"+arg2);
-					startActivity(intent);
-					getActivity().finish();
-					Logger.d(arg2+"");
-				}
-			});
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 		
 	}
@@ -347,7 +327,7 @@ public class HomePageFragment extends Fragment implements RefreshListener,OnClic
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.home_layout_main_menu_1:
+		case R.id.home_menu_item_1:
 
 			Utils.showToast(getActivity(), "生活");
 			Intent intent1 = new Intent(getActivity(),HomeMenuClassActivity.class);
@@ -356,7 +336,7 @@ public class HomePageFragment extends Fragment implements RefreshListener,OnClic
 			getActivity().finish();
 
 			break;
-		case R.id.home_layout_main_menu_2:
+		case R.id.home_menu_item_2:
 
 			Utils.showToast(getActivity(), "学习");
 			Intent intent2 = new Intent(getActivity(),HomeMenuClassActivity.class);
@@ -364,7 +344,7 @@ public class HomePageFragment extends Fragment implements RefreshListener,OnClic
 			startActivity(intent2);
 			getActivity().finish();
 			break;
-		case R.id.home_layout_main_menu_3:
+		case R.id.home_menu_item_3:
 
 			Utils.showToast(getActivity(), "数码");
 			Intent intent3 = new Intent(getActivity(),HomeMenuClassActivity.class);
@@ -372,7 +352,7 @@ public class HomePageFragment extends Fragment implements RefreshListener,OnClic
 			startActivity(intent3);
 			getActivity().finish();
 			break;
-		case R.id.home_layout_main_menu_4:
+		case R.id.home_menu_item_4:
 
 			Utils.showToast(getActivity(), "其他");
 			Intent intent4 = new Intent(getActivity(),HomeMenuClassActivity.class);

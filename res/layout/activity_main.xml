@@ -41,11 +41,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="#F4682B4"
+                android:background="#FFFFFF"
                 tools:ignore="DisableBaselineAlignment" >
 
                 <RelativeLayout
-                    android:id="@+id/homepage_layout"
+                    android:id="@+id/tab_homepage"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1" >
@@ -77,39 +77,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/shopping_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:orientation="vertical"
-                        tools:ignore="UseCompoundDrawables,UselessParent" >
-
-                        <ImageView
-                            android:id="@+id/shopping_image"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:src="@drawable/news_unselected"
-                            tools:ignore="ContentDescription" />
-
-                        <TextView
-                            android:id="@+id/shopping_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="收藏"
-                            android:textColor="#82858b"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/message_layout"
+                    android:id="@+id/tab_bbs"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1" >
@@ -122,55 +90,25 @@
                         tools:ignore="UselessParent,UseCompoundDrawables" >
 
                         <ImageView
-                            android:id="@+id/message_image"
+                            android:id="@+id/homepage_image"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/news_unselected"
+                            android:src="@drawable/guide_home_on"
                             tools:ignore="ContentDescription" />
 
                         <TextView
-                            android:id="@+id/message_text"
+                            android:id="@+id/bbs_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="消息"
+                            android:text="晒圈"
                             android:textColor="#82858b"
                             tools:ignore="HardcodedText" />
                     </LinearLayout>
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/myself_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" >
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:orientation="vertical"
-                        tools:ignore="UselessParent,UseCompoundDrawables" >
-
-                        <ImageView
-                            android:id="@+id/myself_image"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:src="@drawable/news_unselected"
-                            tools:ignore="ContentDescription" />
-
-                        <TextView
-                            android:id="@+id/myself_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="我的"
-                            android:textColor="#82858b"
-                            tools:ignore="HardcodedText" />
-                    </LinearLayout>
-                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

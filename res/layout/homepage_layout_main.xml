@@ -70,7 +70,7 @@
             tools:ignore="DisableBaselineAlignment,UselessParent" >
 
             <RelativeLayout
-                android:id="@+id/home_layout_main_menu_1"
+                android:id="@+id/home_menu_item_1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" >
@@ -100,7 +100,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/home_layout_main_menu_2"
+                android:id="@+id/home_menu_item_2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" >
@@ -130,7 +130,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/home_layout_main_menu_3"
+                android:id="@+id/home_menu_item_3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" >
@@ -160,7 +160,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/home_layout_main_menu_4"
+                android:id="@+id/home_menu_item_4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" >
@@ -191,82 +191,10 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+    <ListView
+        android:id="@+id/home_goosditem_lv"
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="wrap_content"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:gravity="center"
-            android:text="最新更新"
-            android:textColor="#ff3300" />
-
-        <jxnu.n433.x3107.Fragment.View.HGridView
-            android:id="@+id/home_commodity_hotgridview"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:horizontalSpacing="5dp"
-            android:listSelector="#00000000"
-            android:numColumns="2"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="6dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:gravity="center"
-            android:text="晒圈推荐"
-            android:textColor="#ff3300" />
-
-        <ImageView
-            android:id="@+id/home_commodity_centerimagview"
-            android:layout_width="fill_parent"
-            android:layout_height="120dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/t4"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:gravity="center"
-            android:text="猜你喜欢"
-            android:textColor="#ff3300" />
-
-        <jxnu.n433.x3107.Fragment.View.HGridView
-            android:id="@+id/home_commodity_catgridview"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:horizontalSpacing="5dp"
-            android:listSelector="#00000000"
-            android:numColumns="2"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="6dp" />
-    </LinearLayout>
 
 </LinearLayout>

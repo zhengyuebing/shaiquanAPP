@@ -22,7 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import jxnu.n433.x3107.Fragment.HomePageFragment;
 import jxnu.n433.x3107.Fragment.MessageFragment;
-import jxnu.n433.x3107.Fragment.MySelfFragment;
+import jxnu.n433.x3107.Fragment.PersonalView;
 import jxnu.n433.x3107.Fragment.ShoppingFragment;
 import jxnu.n433.x3107.SunGroup.OtherActivity.MerchandiseleftActivity;
 import jxnu.n433.x3107.SunGroup.OtherActivity.PersonalleftActivity;
@@ -44,15 +44,11 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 	//	消息fragment
 	private MessageFragment messageFragment;
 	//	我的fragment
-	private MySelfFragment myselfFragment;
+	private PersonalView myselfFragment;
 	//	首页布局
 	private  View homepageLayout;
 	//	购物车布局
 	private View shoppingLayout;
-	//	消息布局
-	private View messageLayout;
-	//	我的布局
-	private View myselfLayout;
 	//	首页标签图片
 	private ImageView homepageImage;
 	//	购物车标签图片
@@ -207,7 +203,7 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 					System.gc();					
 					return;
 				}
-				myselfFragment=new MySelfFragment();
+				myselfFragment=new PersonalView();
 				transaction.add(R.id.content, myselfFragment);
 			}else {
 				// 如果不为空，则直接将它显示出来
@@ -251,25 +247,21 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 
 
 	private void initViews() {
-		homepageLayout=findViewById(R.id.homepage_layout);
-		shoppingLayout=findViewById(R.id.shopping_layout);
-		messageLayout=findViewById(R.id.message_layout);
-		myselfLayout=findViewById(R.id.myself_layout);
+		homepageLayout=findViewById(R.id.tab_homepage);
+		shoppingLayout=findViewById(R.id.tab_bbs);
+		
 
 		homepageImage=(ImageView) findViewById(R.id.homepage_image);
-		shoppingImage=(ImageView) findViewById(R.id.shopping_image);
-		messageImage=(ImageView) findViewById(R.id.message_image);
-		myselfImage=(ImageView) findViewById(R.id.myself_image);
+		//shoppingImage=(ImageView) findViewById(R.id.shopping_image);
+	
 
 		homgpageText=(TextView) findViewById(R.id.homepage_text);
-		shoppingText=(TextView) findViewById(R.id.shopping_text);
-		messageText=(TextView) findViewById(R.id.message_text);
-		myselfText=(TextView) findViewById(R.id.myself_text);
+		shoppingText=(TextView) findViewById(R.id.bbs_text);
+	
 
 		homepageLayout.setOnClickListener(this);
 		shoppingLayout.setOnClickListener(this);
-		messageLayout.setOnClickListener(this);
-		myselfLayout.setOnClickListener(this);
+	
 	}
 	/*
 	 * 侧滑
@@ -471,21 +463,13 @@ public class MainActivity extends Activity implements android.view.View.OnClickL
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.homepage_layout:
+		case R.id.tab_homepage:
 			// 当点击了消息tab时，选中第1个tab
 			setTabSelection(0);
 			break;
-		case R.id.shopping_layout:
+		case R.id.tab_bbs:
 			// 当点击了联系人tab时，选中第2个tab
 			setTabSelection(1);
-			break;
-		case R.id.message_layout:
-			// 当点击了动态tab时，选中第3个tab
-			setTabSelection(2);
-			break;
-		case R.id.myself_layout:
-			// 当点击了设置tab时，选中第4个tab
-			setTabSelection(3);
 			break;
 		case R.id.iv_left_head:
 			setLeftSelect(1);
